@@ -1,0 +1,13 @@
+[Unit]
+Description=Workload Exporter Service
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+ExecStart=/xbench/workload-exporter/bin/workload_exporter.sh
+
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target
