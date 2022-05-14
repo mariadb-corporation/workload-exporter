@@ -8,6 +8,8 @@ from typing import Dict, Optional
 
 from sqlite_client import SQLiteClient
 
+SECONDS_AGO = 30
+
 
 class SysbenchSQLite(SQLiteClient):
     def __init__(self, benchmark: str = "9010", db_name: str = "test.db"):
@@ -43,7 +45,7 @@ class SysbenchSQLite(SQLiteClient):
             (self.benchmark, threads, throughput, latency),
         )
 
-    def get_latest_metrics(self, seconds_ago: int = 30) -> Optional[Dict]:
+    def get_latest_metrics(self, seconds_ago: int = SECONDS_AGO) -> Optional[Dict]:
         rows = self.select_all_rows(
             f"select * from sysbench_stats where dtime > datetime('now', '-{seconds_ago} seconds', 'localtime') order by dtime desc limit 1"
         )
