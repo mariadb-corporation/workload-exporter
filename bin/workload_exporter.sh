@@ -7,6 +7,7 @@ export PYTHONPATH
 
 SQLITE_DIR="/xbench/db"
 mkdir -p $SQLITE_DIR
+chmod -R 777 /xbench/db
 SQLITE_DB="metrics.db"
 
 cd $WORKLOAD_DIR
