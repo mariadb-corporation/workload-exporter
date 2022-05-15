@@ -13,7 +13,7 @@ SQLITE_DB = "/xbench/db/metrics.db"
 # sysbench oltp_read_write <> | sysbench_parser.py
 if __name__ == "__main__":
 
-    s = SysbenchSQLite(SQLITE_DB)
+    s = SysbenchSQLite(db_name=SQLITE_DB)
 
     for line in fileinput.input():
         if re.match(r"^\[", line):
