@@ -24,11 +24,20 @@ class CustomCollector(object):
             REGISTRY.unregister(collector)
 
     def collect(self):
-
-        letency_g = GaugeMetricFamily("latency", "p95 latency", labels=["benchmark"])
+        letency_g = GaugeMetricFamily(
+            "latency", "sysbench p95 latency", labels=["benchmark"]
+        )
+        threads_g = GaugeMetricFamily(
+            "threads", "sysbench threads", labels=["benchmark"]
+        )
+        tps_g = GaugeMetricFamily("tps", "sysbench tps", labels=["benchmark"])
         row = self.s.get_latest_metrics(seconds_ago=30)
 
         if row is not None:
             print(row)
             letency_g.add_metric([row.get("benchmark")], row.get("latency"))
+            threads_g.add_metric([row.get("benchmark")], row.get("threads"))
+            tps_g.add_metric([row.get("benchmark")], row.get("tps`"))
             yield letency_g
+            yield threads_g
+            yield tps_g
