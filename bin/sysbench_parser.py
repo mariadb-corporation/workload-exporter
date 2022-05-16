@@ -18,8 +18,6 @@ if __name__ == "__main__":
     for line in fileinput.input():
         if re.match(r"^\[", line):
             threads, throughput, latency = s.parse_sysbench_line(line)
-            print(threads, throughput, latency)
             s.store_metrics(threads, throughput, latency)
-
-        if line.startswith("Latency histogram"):
-            break
+        # I have to print line as I want to store raw output which includes histogram
+        print(line.strip())
